@@ -17,6 +17,7 @@ public class MovingObjects : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = newVelocity;
+        Destroy(gameObject, 9.0f);
     }
 
 }

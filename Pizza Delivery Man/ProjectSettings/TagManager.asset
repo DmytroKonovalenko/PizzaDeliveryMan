@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - pizza
+  - Drop
+  - Car
   layers:
   - Default
   - TransparentFX

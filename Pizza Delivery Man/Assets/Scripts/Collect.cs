@@ -6,12 +6,11 @@ using DG.Tweening;
 public class Collect : MonoBehaviour
 {
     public Transform InventoryHolder;
-
-
     Stack<Transform> collectedTrans = new Stack<Transform>();
     bool isADropArea;
     Vector3 DropPos;
-    
+    [SerializeField] private GameObject winPanel;
+
 
 
     private void OnTriggerEnter(Collider other)
@@ -21,21 +20,20 @@ public class Collect : MonoBehaviour
             isADropArea = true;
             DropPos = other.transform.position;
             
-
             StartCoroutine(DropSlow(.5f));
 
         }
         else
         {
-            Asd localResources = null;
+            Pizza localResources = null;
             other.TryGetComponent(out localResources);
 
             if (other.CompareTag("pizza") && localResources && localResources.isAlreadyCollected == false)
             {
+                
                 other.transform.SetParent(InventoryHolder);
                 other.transform.localPosition = new Vector3(0, collectedTrans.Count * .25f, .1f);
                 other.transform.localRotation = Quaternion.identity;
-
                 collectedTrans.Push(other.transform);
                 localResources.isAlreadyCollected = true;
             }
@@ -60,9 +58,9 @@ public class Collect : MonoBehaviour
             {
                 Transform newResources = collectedTrans.Pop();
                 newResources.parent = null;
-                newResources.DOJump(DropPos, 2, 1, .2f).OnComplete(() => newResources.DOPunchScale(new Vector3(.2f, .2f, .2f), .1f).OnComplete(() => newResources.gameObject.SetActive(false)));
+                newResources.DOJump(DropPos, 2, 1, .2f).OnComplete(() => newResources.DOPunchScale(new Vector3(.2f, .2f, .2f), .1f).OnComplete(() => winPanel.SetActive(true)));
+                
 
-               
             }
         }
     }

@@ -16,6 +16,7 @@ public class SpawnCar : MonoBehaviour
     public void Spawn()
     {
         MovingObjects newCar = Instantiate(_carPrefabs, transform.position,transform.rotation) as MovingObjects;
+       
 
     }
 }
